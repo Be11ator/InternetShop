@@ -1,0 +1,145 @@
+{% extends 'shop/index.html' %}
+{% load static %}
+{% block content %}
+    <main>
+        <section class="heading">
+            <div class="heading__wrapper container">
+                <h2 class="heading__heading">new arrivals</h2>
+                <!-- Навигация на bootstrap -->
+                <ul class="nav justify-content-end heading__menu">
+                    <li class="nav-item">
+                        <a class="nav-link heading__nav-link heading__nav-link-first" aria-current="page"
+                            href="#">home</a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link heading__nav-link" href="#">man</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active heading__nav-link heading__active" href="#">new arrivals</a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <section class="filter container">
+            <h2 class="visually-hidden">filter</h2>
+            <button class="filter__menu" id="filter_menu">filter</button>
+                <svg width="15" height="10" viewBox="0 0 15 10" xmlns="http://www.w3.org/2000/svg" class="filter__menu-icon">
+                    <path d="M0.833333 10H4.16667C4.625 10 5 9.625 5 9.16667C5 8.70833 4.625 8.33333 4.16667 8.33333H0.833333C0.375 8.33333 0 8.70833 0 9.16667C0 9.625 0.375 10 0.833333 10ZM0 0.833333C0 1.29167 0.375 1.66667 0.833333 1.66667H14.1667C14.625 1.66667 15 1.29167 15 0.833333C15 0.375 14.625 0 14.1667 0H0.833333C0.375 0 0 0.375 0 0.833333ZM0.833333 5.83333H9.16667C9.625 5.83333 10 5.45833 10 5C10 4.54167 9.625 4.16667 9.16667 4.16667H0.833333C0.375 4.16667 0 4.54167 0 5C0 5.45833 0.375 5.83333 0.833333 5.83333Z"/>
+                    </svg>
+            <div class="filter__wrapper">
+            <ul class="filter__list">
+
+
+<!--                <li class="filter__item">price<i class="fas fa-chevron-down filter__item-arrow"></i></li>-->
+            </ul>
+            <nav class="filter__nav">
+                <div class="filter__nav-wrapper">
+                <button class="filter__menu filter__nav-active" id="filter_close">filter</button>
+                <svg width="15" height="10" viewBox="0 0 15 10" xmlns="http://www.w3.org/2000/svg" class="filter__menu-icon filter__nav-active" id="active_icon">
+                    <path d="M0.833333 10H4.16667C4.625 10 5 9.625 5 9.16667C5 8.70833 4.625 8.33333 4.16667 8.33333H0.833333C0.375 8.33333 0 8.70833 0 9.16667C0 9.625 0.375 10 0.833333 10ZM0 0.833333C0 1.29167 0.375 1.66667 0.833333 1.66667H14.1667C14.625 1.66667 15 1.29167 15 0.833333C15 0.375 14.625 0 14.1667 0H0.833333C0.375 0 0 0.375 0 0.833333ZM0.833333 5.83333H9.16667C9.625 5.83333 10 5.45833 10 5C10 4.54167 9.625 4.16667 9.16667 4.16667H0.833333C0.375 4.16667 0 4.54167 0 5C0 5.45833 0.375 5.83333 0.833333 5.83333Z"/>
+                    </svg>
+                </div>
+                <ul class="filter__nav-category">
+                    <li><a href="#" class="filter__nav-item">
+                        <h3 class="filter__nav-heading" id="filter_category">category</h3></a>
+                        <ul class="filter__nav-subcategory" id="nav_subcategory">
+                            {% for n, month in category %}
+                                <li> <a href="{% url 'show_category' n%}?q={{q}}" class="filter__nav-subitem">{{month}}</a></li>
+                                {% endfor %}
+
+
+                        </ul>
+                    </li>
+
+                    <li><a href="#" class="filter__nav-item">
+
+                        <h3 class="filter__nav-heading" id="filter_brand">brand</h3></a>
+
+                        <ul class="filter__nav-brand">
+                            {%for b in brands%}
+                            <li><a href="{{b.get_absolute_url }}?q={{q}}" class="filter__nav-subitem">{{b.name}}</a></li>
+                            {%endfor%}
+                        </ul>
+
+                    </li>
+                    <li><a href="#" class="filter__nav-item">
+                        <h3 class="filter__nav-heading"  id="filter_designer">designer</h3></a>
+                        <ul class="filter__nav-designer">
+                            <li><a href="#" class="filter__nav-subitem">Шанель</a></li>
+                            <li><a href="#" class="filter__nav-subitem">Скиапарелли</a></li>
+                            <li><a href="#" class="filter__nav-subitem">Диор</a></li>
+                            <li><a href="#" class="filter__nav-subitem">Сен-Лоран</a></li>
+                            <li><a href="#" class="filter__nav-subitem">Армани</a></li>
+                            <li><a href="#" class="filter__nav-subitem">Лорен</a></li>
+
+                            <li><a href="#" class="filter__nav-subitem">Гаравани</a></li>
+                        </ul></li>
+                </ul>
+
+            </nav>
+        </div>
+        </section>
+        <section class="catalog container">
+            <div class="catalog__grid">
+                 {% for p in posts %}
+                <div class="catalog__item">
+                    <div class="catalog__item-imgwrapper">
+                        <img class="catalog__item-img" src="{{p.photo.url}}" width="100" height="111" alt="A man with the backpack">
+                        <div class="catalog__item-overlay"></div>
+                        <a href="{{p.get_absolute_url}}" type="button" class="catalog__item-button">
+
+                            <span class="catalog__item-btntxt"> Подробнее</span>
+                        </a>
+                    </div>
+                    <h3 class="catalog__item-heading">{{p.title}}</h3>
+                    <p class="catalog__item-text">{{p.content|linebreaks|truncatewords:20}}</p>
+                    <p class="catalog__item-price">{{p.price}} руб</p>
+                </div>
+                {%endfor%}
+
+
+            </div>
+            <nav class="catalog__pagination">
+
+                <ul class="catalog__pagination-list">
+                     {% if page_obj.has_previous %}
+
+                    <li class="catalog__pagination-arrow"><a class="catalog__pagination-link" href="?page={{ page_obj.previous_page_number }}&q={{q}}" tabindex="-1" aria-disabled="true"><i class="fa fa-arrow-left" aria-hidden="true"></i></a></li>
+                    {% endif %}
+                    {%for p in paginator.page_range%}
+
+
+
+
+                            {% if page_obj.number == p %}
+                             <li class="catalog__pagination-active"><a class="catalog__pagination-link" href="?page={{p}}&q={{q}}">{{p}}</a></li>
+
+                            {%else%}
+
+                    <li class="catalog__pagination-item"><a class="catalog__pagination-link" href="?page={{p}}&q={{q}}
+                      ">{{p}}</a></li>
+                            {%endif%}
+
+<!--                        <li class="catalog__pagination-item" ><a class="catalog__pagination-link" href="#">2</a></li>-->
+<!--                        <li class="catalog__pagination-item"><a class="catalog__pagination-link" href="#">3</a></li>-->
+<!--                        <li class="catalog__pagination-item"><a class="catalog__pagination-link" href="#">4</a></li>-->
+<!--                        <li class="catalog__pagination-item"><a class="catalog__pagination-link" href="#">5</a></li>-->
+<!--                        <li class="catalog__pagination-item"><a class="catalog__pagination-link" href="#">6</a></li>-->
+
+                    {%endfor%}
+
+
+                    {% if page_obj.has_next %}
+                      <li class="catalog__pagination-arrow"><a class="catalog__pagination-link" href="?page={{ page_obj.next_page_number }}&q={{q}}&sort={{sort_name}}"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    {% endif %}
+
+
+                </ul>
+
+            </nav>
+        </section>
+    </main>
+<script src="{% static 'shop/js/app.js' %}"></script>
+<script src="https://kit.fontawesome.com/9692834c49.js" crossorigin="anonymous"></script>
+{%endblock%}

@@ -1,0 +1,73 @@
+{% extends 'shop/index.html' %}
+{% load static %}
+{% block content %}
+<link type="text/css" href="{% static 'shop/css/styles.css' %}" rel="stylesheet"/>
+    <main class="main">
+        <section class="heading">
+            <h2 class="heading__heading container">shopping cart</h2>
+        </section>
+        <section class="cart container">
+                <h2 class="visually-hidden">корзина</h2>
+                <div class="cart__wrapper">
+                <ul class="cart__list">
+
+                    {% for item in cart %}
+                         {% with product=item.product %}
+                    <li class="cart__list-item">
+
+                        <img src="{% if product.photo %}{{ product.photo.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" alt="Man in hoody" width="262" height="306" class="cart__list-img">
+                        <div class="cart__list-wrapper">
+                            <a  href="{% url 'cart:cart_remove' product.id %}" class="log"><i class="fa-sharp fa-solid fa-circle-xmark"></i> </a>
+                            <h3 class="cart__list-heading">{{ item.product }}</h3>
+                            <p class="cart__list-text">Цена:<span class="cart__list-pink">{{ item.price }} ₽</span></p>
+                            <p class="cart__list-text">Цвет: {{item.colors}}</p>
+                            <p class="cart__list-text">Размер: {{item.sizes}}</p>
+                            <div class="cart__list-subwrapper">
+                                <label class="cart__list-text">Кол-во: {{ item.quantity }}
+
+                {% csrf_token %}
+              </label>
+
+                            </div>
+
+                        </div>
+                    </li>
+                        {% endwith %}
+                        {% endfor %}
+
+
+                </ul>
+                    <ul class="cart__list-buttons">
+
+                        <li ><a href="{% url 'catalog'%}"><button type="button" class="cart__list-button">Продолжить покупки</button></a></li>
+                    </ul>
+                </div>                  
+                <div class="cart__shipping_wrapper">
+                    <form action="post" class="cart__shipping">
+                        <h3 class="cart__shipping_heading">shipping adress</h3>
+                        <label for="city" class="visually-hidden">City</label>
+                        <input type="text" id="city" class="cart__shipping_input" placeholder="Bangladesh">
+                        <label for="state" class="visually-hidden">State</label>
+                        <input type="text" id="state" class="cart__shipping_input" placeholder="State">
+                        <label for="zip" class="visually-hidden">Postcode/zip</label>
+                        <input type="text" id="zip" class="cart__shipping_input" placeholder="Postcode / Zip">
+                        <button type="submit" class="cart__shipping_button">get a quote</button>
+                    </form>
+                    <div class="cart__total">
+                        <div class="cart__total_text_wrapper">
+
+                            <p class="cart__grandtotal_text"> Общая цена {{ cart.get_total_price }} руб</p>
+                        </div>
+                        <div class="cart__total_checkout_wrapper">
+                            <hr class="cart__total_line">
+
+                            <button type="submit" class="cart__total_checkout">proceed to checkout</button>
+                        </div>
+                    </div>
+                </div>
+            <div class="main__overlay"></div>
+        </section>
+    </main>
+    <link type="text/css" href="{% static 'shop/css/styles.css' %}" rel="stylesheet"/>
+<script src="{% static 'shop/js/app.js' %}"></script>
+{% endblock %}

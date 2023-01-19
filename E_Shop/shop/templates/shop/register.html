@@ -1,0 +1,30 @@
+{% extends 'shop/index.html' %}
+{% load static %}
+{% block content %}
+    <main class="main">
+        <section class="heading">
+            <h2 class="heading__heading container">registration</h2>
+        </section>
+        <section class="registration">
+            <div class="registration__content_wrapper container">
+
+                <div class="registration__text">
+                 <form  method="post" class="registration__form">
+                    <fieldset class="registration__fieldset">
+                            {%csrf_token%}
+<!--                        {{form.as_p}}-->
+                            {% for f in form %}
+                        <p><label class="form-label" for="{{ f.id_for_label }}"> </label>{{ f }}</p>
+                        <div class="form-error">{{ f.errors }}</div>
+                            {% endfor %}
+                        </fieldset>
+                    <button type="submit" class="registration__form_submit">Регистрация
+                    </button>
+                </form>
+                </div>
+            </div>
+        </section>
+        <div class="main__overlay"></div>
+    </main>
+<script src="{% static 'shop/js/app.js' %}"></script>
+{%endblock%}

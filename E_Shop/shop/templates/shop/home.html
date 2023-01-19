@@ -1,0 +1,67 @@
+{% extends 'shop/index.html' %}
+{% load static %}
+{% block content %}
+<main class="main">
+    <section class="intro">
+        <img src="{% static 'shop/img/man-in-coat.png' %}" alt="The brand of luxerious fashion" class="intro__img">
+        <div class="intro__heading_wrapper">
+            <div class="intro__heading_verticalbox">&nbsp;</div>
+            <h1 class="intro__heading">the brand<span class="intro__text">of luxerious<span
+                    class="intro__pink">fashion</span></span></h1>
+        </div>
+    </section>
+    <section class="stock">
+        <h2 class="visually-hidden">Stock</h2>
+        <ul class="stock__list container">
+            <li class="stock__item stock__item_woman">
+                <h3 class="stock__item_heading">30% off</h3>
+                <p class="stock__item_text">for women</p>
+            </li>
+            <li class="stock__item stock__item_man">
+                <h3 class="stock__item_heading">hot deal</h3>
+                <p class="stock__item_text">for men</p>
+            </li>
+            <li class="stock__item stock__item_kids">
+                <h3 class="stock__item_heading">new arrivals</h3>
+                <p class="stock__item_text">for kids</p>
+            </li>
+            <li class="stock__item stock__item_accessoires">
+                <h3 class="stock__item_heading">luxirous & trendy</h3>
+                <p class="stock__item_text">accesories</p>
+            </li>
+        </ul>
+    </section>
+    <section class="featured container">
+        <h2 class="featured__heading">Featured Items</h2>
+        <p class="featured__text">Shop for items based on what we featured in this week</p>
+        <ul class="featured__list">
+            {% for p in posts %}
+            <li class="featured__item">
+
+                <div class="featured__item_imgwrapper">
+                    <img class="featured__item_img" src="{{p.photo.url}}"
+                         alt="A man with the backpack">
+                    <div class="featured__item_overlay"></div>
+                    <a type="button" href="{{p.get_absolute_url }}" class="featured__item_button" >
+
+                        <span class="featured__item_btntxt">Подробнее</span>
+                    </a>
+                </div>
+                <h3 class="featured__item_heading">{{p.title}}</h3>
+                <p class="featured__item_text">{{p.content}}</p>
+                <p class="featured__item_price">{{p.price}} руб.</p>
+            </li>
+            {% endfor %}
+
+        </ul>
+
+        <a class="featured__link" href="{% url 'catalog'%}">
+            <div class="featured__button">Browse All Product</div>
+        </a>
+    </section>
+
+    <div class="main__overlay"></div>
+</main>
+
+<script src="{% static 'shop/js/app.js' %}"></script>
+{% endblock %}
