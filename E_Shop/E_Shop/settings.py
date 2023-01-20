@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'captcha',
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
-    'rest_framework'
+    'rest_framework',
+    'djoser',
 ]
 
 MIDDLEWARE = [
@@ -127,6 +128,7 @@ AUTH_USER_EMAIL_UNIQUE = True
 STATIC_URL = 'static/'
 STATIC_DIRS = os.path.join(BASE_DIR, "static")
 STATICFILES_DIRS = []
+LOGOUT_REDIRECT_URL = 'url name to redirect'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -135,4 +137,9 @@ MEDIA_URL = '/media/'
 
 LOGIN_REDIRECT_URL = '/'
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+
+    ),
+}

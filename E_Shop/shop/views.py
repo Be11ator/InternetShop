@@ -25,21 +25,21 @@ from .utils import DataMixin, ContextDataMixin
 a = ''
 
 
-class ProductViewSetAPI(viewsets.ModelViewSet):
-    # queryset = Women.objects.all()
-    serializer_class = ProductSerializer
-
-    def get_queryset(self):
-        pk = self.kwargs.get('pk')
-        if not pk:
-            return Women.objects.all().order_by('-price')  # переопредtление запроса для бд
-        return Women.objects.filter(pk=pk)
-
-    @action(methods=['get'], detail=True)
-    def brand(self, request, pk=None):
-        brand= Brand.objects.get(pk=pk)
-        return Response({'brand': brand.name})
-
+# class ProductViewSetAPI(viewsets.ModelViewSet):
+#     # queryset = Women.objects.all()
+#     serializer_class = ProductSerializer
+#
+#     def get_queryset(self):
+#         pk = self.kwargs.get('pk')
+#         if not pk:
+#             return Women.objects.all().order_by('-price')  # переопредtление запроса для бд
+#         return Women.objects.filter(pk=pk)
+#
+#     @action(methods=['get'], detail=True)
+#     def brand(self, request, pk=None):
+#         brand= Brand.objects.get(pk=pk)
+#         return Response({'brand': brand.name})
+#
 
 # class ProductAPI(APIView):
 #     def get(self, request):
@@ -118,7 +118,7 @@ class LoginUser(DataMixin, LoginView):
 
 def logout_user(request):
     logout(request)
-    return redirect('login')
+    return redirect('login_user')
 
 
 def index(request):

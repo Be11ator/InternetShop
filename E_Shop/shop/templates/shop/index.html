@@ -56,9 +56,9 @@
                     </div>
                 </a></li>
                 {% if request.user.is_authenticated %}
-				<li class="last">   <span>{{user.username}}</span>  | <a href="{% url 'logout' %}"><img width="29" height="29" src="{% static 'shop/img/exit-svgrepo-com.svg' %}" alt="За стеклом"></a> </li>
+				<li class="last">   <span>{{user.username}}</span>  | <a href="{% url 'logout_user' %}"><img width="29" height="29" src="{% static 'shop/img/exit-svgrepo-com.svg' %}" alt="За стеклом"></a> </li>
 				{% else %}
-				 <li><a href="{% url 'login'%}">
+				 <li><a href="{% url 'logout_user' %}">
                     <div class="header__button header__mobile_hide">
                         <svg
                                 width="29" height="29" viewBox="0 0 29 29" xmlns="http://www.w3.org/2000/svg"
