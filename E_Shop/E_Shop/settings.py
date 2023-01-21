@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'rest_framework',
     'djoser',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
