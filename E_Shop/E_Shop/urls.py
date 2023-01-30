@@ -25,6 +25,7 @@ from rest_framework import routers
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include('shop.urls')),
+    path("", include('drf.urls')),
     path('captcha/', include('captcha.urls')),
     path('cart/', include('cart.urls', namespace='cart')),
     # path('api/v1/', include(rout.urls)),

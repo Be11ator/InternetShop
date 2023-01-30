@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'captcha',
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
+    'drf.apps.DrfConfig',
     'rest_framework',
     'djoser',
     'rest_framework.authtoken'

@@ -58,7 +58,7 @@ class Women(models.Model):
     publish = models.BooleanField(default=True, verbose_name="Публикация")
     colors = models.ManyToManyField(ColorProduct)
     sizes = models.ManyToManyField(SizeProduct)
-    gender =models.ForeignKey("Gender", on_delete=models.PROTECT, null=True, verbose_name="Гендэр")
+
     brand = models.ForeignKey("Brand", on_delete=models.PROTECT, null=True, verbose_name="Брэнд")
     category = models.CharField(verbose_name="Категория", choices=CATEGORY, null=True, max_length=30)
     @classmethod
