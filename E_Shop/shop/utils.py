@@ -1,16 +1,8 @@
-from shop.forms import AddToCarz
-from shop.models import *
 
-Accessories = 'accessories'
-Bags = 'bags'
-Hoodies_or_Sweatshirts = 'hoodies_or_sweatshirts'
-Jackets_or_Coats = 'jackets_or_coats'
-Polos = 'polos'
-Shirts = 'shirts'
-Shoes = 'shoes'
-Sweaters = 'sweaters'
-T_Shirts = 't_shirts'
-Trousers_or_Jeans = 'trousers_or_jeans'
+from shop.models import *
+from shop.models import Women
+
+
 class DataMixin:
     def get_user_context(self, **kwargs):
         context = kwargs

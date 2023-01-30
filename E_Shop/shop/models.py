@@ -3,10 +3,20 @@ from django.db import models
 from django.urls import reverse
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
-from shop.utils import *
+
+
 
 User._meta.get_field('email')._unique = True
-
+Accessories = 'accessories'
+Bags = 'bags'
+Hoodies_or_Sweatshirts = 'hoodies_or_sweatshirts'
+Jackets_or_Coats = 'jackets_or_coats'
+Polos = 'polos'
+Shirts = 'shirts'
+Shoes = 'shoes'
+Sweaters = 'sweaters'
+T_Shirts = 't_shirts'
+Trousers_or_Jeans = 'trousers_or_jeans'
 CATEGORY = [
     (Accessories, 'Аксессуары'),
     (Bags, 'Рюкзаки'),

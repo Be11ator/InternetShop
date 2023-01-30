@@ -19,7 +19,7 @@ from .forms import AddToCarz, RegisterUserForm, LoginUserForm
 from .models import *
 from rest_framework import generics, viewsets
 
-from .serializer import *
+
 from .utils import DataMixin, ContextDataMixin
 
 
