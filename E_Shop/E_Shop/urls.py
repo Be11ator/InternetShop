@@ -17,10 +17,6 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, re_path
 from E_Shop import settings
-from shop.views import *
-from rest_framework import routers
-# rout = routers.DefaultRouter()
-# rout.register(r'product', ProductViewSetAPI, basename='women')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,10 +24,10 @@ urlpatterns = [
     path("", include('drf.urls')),
     path('captcha/', include('captcha.urls')),
     path('cart/', include('cart.urls', namespace='cart')),
-    # path('api/v1/', include(rout.urls)),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
 ]
-# print(rout.urls)
+
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # Доп настройка дебага для картинок при загрузки на серв
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

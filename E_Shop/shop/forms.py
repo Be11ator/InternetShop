@@ -20,25 +20,10 @@ class MyModelChoiceField(ModelChoiceField):
 
 class AddToCarz(forms.Form):
     def __init__(self, *args, **kwargs):
-        # print(*args[0].values(), *args[1].values())
-
-        # self.product_requsets = args[0].values()
-        # self.product_name = args[1].values()
-        # self.product_id = str(*args[1].values())
-
         super(AddToCarz, self).__init__(*args, **kwargs)
-        # field = Women._meta.get_field("colors")
-        # obj = Women.objects.filter(slug=str(*self.product_name))
 
-        # print(Women.objects.filter(slug=str(*self.product_name)).values('colors__name'))
-        # a = Women.objects.filter(slug=str(*self.product_name)).values('colors__name')[0]
-        # print(a['colors__name'])
-        print(type(args), args[-1].get('pk_t'))
         self.fields['color'] = ModelChoiceField(queryset=ColorProduct.objects.filter(women__pk=args[-1].get('pk_t')))
         self.fields['size'] = ModelChoiceField(queryset=SizeProduct.objects.filter(women__pk=args[-1].get('pk_t')))
-
-    # size = forms.ModelChoiceField(queryset=SizeProduct.objects.all())
-    # color = forms.ModelChoiceField(queryset=ColorProduct.objects.all())
 
     quantity = forms.TypedChoiceField(
         choices=PRODUCT_QUANTITY_CHOICES,
@@ -48,7 +33,7 @@ class AddToCarz(forms.Form):
 
     class Meta:
         model = Women
-        fields = ('color','size')
+        fields = ('color', 'size')
 
 
 class RegisterUserForm(UserCreationForm):

@@ -3,29 +3,23 @@ from django.db import models
 from django.urls import reverse
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+from shop.utils import *
+
 User._meta.get_field('email')._unique = True
-Accessories = 'accessories'
-Bags = 'bags'
-Hoodies_or_Sweatshirts = 'hoodies_or_sweatshirts'
-Jackets_or_Coats = 'jackets_or_coats'
-Polos = 'polos'
-Shirts = 'shirts'
-Shoes = 'shoes'
-Sweaters = 'sweaters'
-T_Shirts = 't_shirts'
-Trousers_or_Jeans = 'trousers_or_jeans'
+
 CATEGORY = [
-        (Accessories, 'Аксессуары'),
-        (Bags, 'Рюкзаки'),
-        (Hoodies_or_Sweatshirts, 'Толстовки или свитшоты'),
-        (Jackets_or_Coats, 'Куртки или пальто'),
-        (Polos , 'Поло'),
-        (Shirts , 'Рубашки'),
-        (Shoes  , 'Обувь'),
-        (Sweaters , 'Свитера'),
-        (T_Shirts , 'Футблоки'),
-        (Trousers_or_Jeans, 'Брюки или джинсы')
+    (Accessories, 'Аксессуары'),
+    (Bags, 'Рюкзаки'),
+    (Hoodies_or_Sweatshirts, 'Толстовки или свитшоты'),
+    (Jackets_or_Coats, 'Куртки или пальто'),
+    (Polos, 'Поло'),
+    (Shirts, 'Рубашки'),
+    (Shoes, 'Обувь'),
+    (Sweaters, 'Свитера'),
+    (T_Shirts, 'Футблоки'),
+    (Trousers_or_Jeans, 'Брюки или джинсы')
 ]
+
 
 class SizeProduct(models.Model):
     name = models.CharField(max_length=100, db_index=True, verbose_name="Название")
@@ -38,8 +32,10 @@ class SizeProduct(models.Model):
     def __str__(self):
         return self.name
 
+
 class ColorProduct(models.Model):
     name = models.CharField(max_length=100, db_index=True, verbose_name="Название")
+
     class Meta:
         verbose_name = 'Цвет продукта'
         verbose_name_plural = 'Цвет продукта'
@@ -47,6 +43,8 @@ class ColorProduct(models.Model):
 
     def __str__(self):
         return self.name
+
+
 class Women(models.Model):
     title = models.CharField(max_length=255, verbose_name="Заголовок")
     content = models.TextField(blank=True, verbose_name="Информация")
@@ -61,9 +59,10 @@ class Women(models.Model):
 
     brand = models.ForeignKey("Brand", on_delete=models.PROTECT, null=True, verbose_name="Брэнд")
     category = models.CharField(verbose_name="Категория", choices=CATEGORY, null=True, max_length=30)
+
     @classmethod
     def get_search_product(cls, request):
-       return cls.objects.filter(title__contains=request)
+        return cls.objects.filter(title__contains=request)
 
     @classmethod
     def get_search_product_category(cls, request_title, request_category):
@@ -74,12 +73,13 @@ class Women(models.Model):
         return cls.objects.filter(title__contains=requset_title).filter(brand_id__slug=request_brand_id)
 
     @classmethod
-    def get_qeryset_brand_id (cls,  request_brand_id):
+    def get_qeryset_brand_id(cls, request_brand_id):
         return cls.objects.filter(brand_id__slug=request_brand_id)
 
     @classmethod
     def get_qeryset_product_slug(cls, request_product_slug):
         return cls.objects.filter(slug=request_product_slug)
+
     class Meta:
         verbose_name = 'Товар'
         verbose_name_plural = 'Товар'
@@ -87,25 +87,21 @@ class Women(models.Model):
 
     def get_absolute_url(self):
         return reverse("product", kwargs={'product_name': self.slug})
+
     def __str__(self):
         return self.title
 
-    # def save(self, *args, **kwargs):
-    #     if Women.objects.filter(title=self.title).exists():
-    #
-    #         self.slug = slugify(self.title) + "_" + extra
-    #     else:
-    #         self.slug = slugify(self.title)
-    #     super(Women, self).save(*args, **kwargs)
+
 
 
 class Brand(models.Model):
     name = models.CharField(max_length=100, db_index=True, verbose_name="Брэнд")
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL", null=True)
+
     def __str__(self):
         return self.name
-    def get_absolute_url(self):
 
+    def get_absolute_url(self):
         return reverse("brand", kwargs={'brand_slug': self.slug})
 
     class Meta:
@@ -113,30 +109,31 @@ class Brand(models.Model):
         verbose_name_plural = 'Брэнд'
         ordering = ['id']
 
+
 class Gender(models.Model):
     name = models.CharField(max_length=100, db_index=True, verbose_name="Гендэр")
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL", null=True)
 
     def get_absolute_url(self):
         return reverse("gender", kwargs={'gender_name': self.name})
+
     class Meta:
         verbose_name = 'Гендэр'
         verbose_name_plural = 'Гендэр'
         ordering = ['id']
 
-class  SortProduct(models.Model):
+
+class SortProduct(models.Model):
     name = models.CharField(max_length=100, db_index=True, verbose_name="Название")
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL", null=True)
 
     def get_absolute_url(self):
         return reverse("catalog_sort", kwargs={'sort_name': self.slug})
+
     class Meta:
         verbose_name = 'Сортировка'
         verbose_name_plural = 'Сортировка'
         ordering = ['id']
-
-
-
 
 
 class Carz(models.Model):
@@ -144,9 +141,6 @@ class Carz(models.Model):
     color = models.CharField(max_length=255, verbose_name="Цвет")
     price = models.FloatField(max_length=20, verbose_name="Цена")
     size = models.CharField(max_length=20, verbose_name="Размер")
+
     def __str__(self):
         return self.title
-
-
-
-
